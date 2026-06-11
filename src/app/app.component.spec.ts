@@ -3,27 +3,56 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
+      declarations: [AppComponent]
+    });
+  });
 
-  it('should create the app', () => {
+  it('deve criar o componente quando inicializar a aplicação', () => {
+    // Arrange
     const fixture = TestBed.createComponent(AppComponent);
+
+    // Act
     const app = fixture.componentInstance;
+
+    // Assert
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'frontend-challenge'`, () => {
+  it('deve retornar o título frontend-challenge quando ler a propriedade title', () => {
+    // Arrange
     const fixture = TestBed.createComponent(AppComponent);
+
+    // Act
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend-challenge');
+
+    // Assert
+    expect(app.title).toBe('frontend-challenge');
   });
 
-  it('should render title', () => {
+  it('deve renderizar router-outlet quando a view for exibida', () => {
+    // Arrange
     const fixture = TestBed.createComponent(AppComponent);
+
+    // Act
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('frontend-challenge app is running!');
+
+    // Assert
+    expect(compiled.querySelector('router-outlet')).not.toBeNull();
+  });
+
+  it('deve não renderizar o texto legado quando a view for exibida', () => {
+    // Arrange
+    const fixture = TestBed.createComponent(AppComponent);
+
+    // Act
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    // Assert
+    expect(compiled.textContent).not.toContain('frontend-challenge app is running!');
   });
 });
