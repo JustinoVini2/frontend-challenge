@@ -1,0 +1,84 @@
+<section class="results-shell">
+  <div class="loading-state" *ngIf="loading">
+    <mat-progress-spinner diameter="56" mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <mat-card class="error-card" *ngIf="!loading && (notFound || errorMessage)">
+    <mat-card-content>
+      <mat-icon color="warn">warning</mat-icon>
+      <p>{{ notFound ? 'User not found' : errorMessage }}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <ng-container *ngIf="!loading && !notFound && !errorMessage && user">
+    <mat-card class="profile-card">
+      <div class="profile-header">
+        <img [src]="user.avatar_url" [alt]="user.login" class="avatar" />
+        <div class="profile-copy">
+          <h2>{{ user.name || user.login }}</h2>
+          <p class="login">@{{ user.login }}</p>
+          <p>{{ user.bio || 'No bio available.' }}</p>
+          <p *ngIf="user.location" class="location">
+            <mat-icon>place</mat-icon>
+            <span>{{ user.location }}</span>
+          </p>
+        </div>
+      </div>
+
+      <mat-chip-set>
+        <mat-chip>Followers: {{ user.followers }}</mat-chip>
+        <mat-chip>Following: {{ user.following }}</mat-chip>
+        <mat-chip>Repos: {{ user.public_repos }}</mat-chip>
+      </mat-chip-set>
+    </mat-card>
+
+    <mat-chip color="primary" selected class="stars-chip">
+      ⭐ {{ totalStars }} total stars
+    </mat-chip>
+
+    <section class="controls">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Filter repositories</mat-label>
+        <input
+          matInput
+          placeholder="Filter by repo name"
+          [(ngModel)]="filterText"
+          (input)="applyFiltersAndSort()"
+        />
+      </mat-form-field>
+
+      <mat-button-toggle-group
+        [value]="sortBy"
+        (change)="sortBy = $event.value; applyFiltersAndSort()"
+      >
+        <mat-button-toggle value="stars">Stars</mat-button-toggle>
+        <mat-button-toggle value="name">Name</mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <mat-button-toggle-group
+        [value]="sortDir"
+        (change)="sortDir = $event.value; applyFiltersAndSort()"
+      >
+        <mat-button-toggle value="asc">↑ Asc</mat-button-toggle>
+        <mat-button-toggle value="desc">↓ Desc</mat-button-toggle>
+      </mat-button-toggle-group>
+    </section>
+
+    <section class="repos-grid" *ngIf="filteredRepos.length; else emptyState">
+      <app-repo-card
+        *ngFor="let repo of filteredRepos; trackBy: trackById"
+        [repo]="repo"
+        [username]="user.login"
+      ></app-repo-card>
+    </section>
+
+    <ng-template #emptyState>
+      <mat-card class="empty-state">
+        <mat-card-content>
+          <mat-icon>search_off</mat-icon>
+          <p>No repositories found</p>
+        </mat-card-content>
+      </mat-card>
+    </ng-template>
+  </ng-container>
+</section>

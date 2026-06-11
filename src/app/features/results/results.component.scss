@@ -1,0 +1,74 @@
+.results-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 16px 32px;
+}
+
+.loading-state,
+.empty-state mat-card-content,
+.error-card mat-card-content {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.profile-card {
+  margin-bottom: 16px;
+}
+
+.profile-header {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+
+.login {
+  opacity: 0.75;
+}
+
+.location {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.stars-chip {
+  margin-bottom: 16px;
+}
+
+.controls {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.filter-field {
+  width: 100%;
+}
+
+.repos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .repos-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

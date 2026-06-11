@@ -1,0 +1,32 @@
+.repo-detail-shell {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.loading-state {
+  min-height: 220px;
+  display: grid;
+  place-items: center;
+}
+
+.repo-card {
+  width: 100%;
+}
+
+.stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.updated {
+  margin-top: 12px;
+  opacity: 0.8;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}

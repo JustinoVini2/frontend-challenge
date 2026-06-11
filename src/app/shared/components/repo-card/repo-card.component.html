@@ -1,0 +1,25 @@
+<mat-card class="repo-card">
+  <mat-card-header>
+    <mat-card-title>
+      <a [routerLink]="['/user', username, 'repo', repo.name]">{{ repo.name }}</a>
+    </mat-card-title>
+    <mat-card-subtitle>{{ repo.description || 'No description' }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="repo-meta">
+      <mat-chip *ngIf="repo.language" [style.background]="languageColor" class="language-chip">
+        {{ repo.language }}
+      </mat-chip>
+      <span>⭐ {{ repo.stargazers_count }}</span>
+      <span>🍴 {{ repo.forks_count }}</span>
+      <span>Updated {{ repo.updated_at | date: 'MMM d, y' }}</span>
+    </div>
+
+    <mat-chip-set *ngIf="repo.topics?.length" class="topics">
+      <mat-chip *ngFor="let topic of repo.topics | slice:0:3; trackBy: trackByTopic">
+        {{ topic }}
+      </mat-chip>
+    </mat-chip-set>
+  </mat-card-content>
+</mat-card>

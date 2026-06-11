@@ -1,0 +1,40 @@
+<section class="search-shell">
+  <div class="search-card">
+    <mat-icon class="github-icon" aria-hidden="true">code</mat-icon>
+    <h1>GitHub User Search</h1>
+
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search GitHub username</mat-label>
+      <input
+        matInput
+        [formControl]="username"
+        placeholder="Search GitHub username"
+        (keyup.enter)="submit()"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        aria-label="Search"
+        [disabled]="loading"
+        (click)="submit()"
+      >
+        <mat-icon *ngIf="!loading">search</mat-icon>
+        <mat-progress-spinner
+          *ngIf="loading"
+          diameter="20"
+          mode="indeterminate"
+        ></mat-progress-spinner>
+      </button>
+      <mat-error *ngIf="submitted && (username.hasError('required') || !username.value.trim())">
+        Username is required.
+      </mat-error>
+      <mat-error *ngIf="notFound">
+        User not found.
+      </mat-error>
+      <mat-error *ngIf="genericError">
+        Could not validate this user right now. Try again.
+      </mat-error>
+    </mat-form-field>
+  </div>
+</section>

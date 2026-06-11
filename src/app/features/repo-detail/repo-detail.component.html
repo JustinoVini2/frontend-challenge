@@ -1,0 +1,35 @@
+<section class="repo-detail-shell">
+  <div class="loading-state" *ngIf="loading">
+    <mat-progress-spinner diameter="56" mode="indeterminate"></mat-progress-spinner>
+  </div>
+
+  <mat-card class="repo-card" *ngIf="!loading && repo">
+    <mat-card-header>
+      <mat-card-title>{{ repo.full_name }}</mat-card-title>
+      <mat-card-subtitle>{{ repo.description || 'No description' }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="stats">
+        <span>⭐ {{ repo.stargazers_count }}</span>
+        <span>🍴 {{ repo.forks_count }}</span>
+      </div>
+
+      <mat-chip-set>
+        <mat-chip *ngIf="repo.language">{{ repo.language }}</mat-chip>
+        <mat-chip *ngFor="let topic of repo.topics; trackBy: trackByTopic">
+          {{ topic }}
+        </mat-chip>
+      </mat-chip-set>
+
+      <p class="updated">Last updated: {{ repo.updated_at | date: 'MMM d, y' }}</p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <a mat-raised-button color="primary" [href]="repo.html_url" target="_blank" rel="noopener noreferrer">
+        View on GitHub
+      </a>
+      <button mat-stroked-button type="button" (click)="goBack()">← Back</button>
+    </mat-card-actions>
+  </mat-card>
+</section>

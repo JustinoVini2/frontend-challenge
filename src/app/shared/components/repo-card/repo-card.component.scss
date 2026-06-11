@@ -1,0 +1,24 @@
+.repo-card {
+  height: 100%;
+}
+
+.repo-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.language-chip {
+  color: #ffffff;
+}
+
+mat-card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+mat-card-title a:hover {
+  text-decoration: underline;
+}
