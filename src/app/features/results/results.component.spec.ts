@@ -104,116 +104,76 @@ describe('ResultsComponent', () => {
   });
 
   it('deve criar o componente quando a página de resultados carregar', () => {
-    // Arrange
     jest
       .spyOn(githubService, 'getUserWithRepos')
       .mockReturnValue(of({ user: mockUser, repos: mockRepos }));
-
-    // Act
     fixture.detectChanges();
-
-    // Assert
     expect(component).toBeTruthy();
   });
 
   it('deve exibir dados do usuário quando a API retornar sucesso', () => {
-    // Arrange
     jest
       .spyOn(githubService, 'getUserWithRepos')
       .mockReturnValue(of({ user: mockUser, repos: mockRepos }));
-
-    // Act
     component.ngOnInit();
-
-    // Assert
     expect(component.user).toEqual(mockUser);
     expect(component.repos).toEqual(mockRepos);
     expect(component.loading).toBe(false);
   });
 
   it('deve calcular total de estrelas corretamente quando usuário tiver repositórios', () => {
-    // Arrange
     const expectedTotal = 15; // 10 + 5
     jest
       .spyOn(githubService, 'getUserWithRepos')
       .mockReturnValue(of({ user: mockUser, repos: mockRepos }));
-
-    // Act
     component.ngOnInit();
-
-    // Assert
     expect(component.totalStars).toBe(expectedTotal);
   });
 
   it('deve definir notFound como true quando usuário não existir', () => {
-    // Arrange
     const error = new HttpErrorResponse({ status: 404 });
     jest
       .spyOn(githubService, 'getUserWithRepos')
       .mockReturnValue(throwError(() => error));
-
-    // Act
     component.ngOnInit();
-
-    // Assert
     expect(component.notFound).toBe(true);
     expect(component.loading).toBe(false);
   });
 
   it('deve definir errorMessage quando erro genérico ocorrer', () => {
-    // Arrange
     const error = new HttpErrorResponse({ status: 500 });
     jest
       .spyOn(githubService, 'getUserWithRepos')
       .mockReturnValue(throwError(() => error));
-
-    // Act
     component.ngOnInit();
-
-    // Assert
     expect(component.errorMessage).toBe('Something went wrong while loading this user.');
     expect(component.loading).toBe(false);
   });
 
   it('deve filtrar repositórios quando filterText for preenchido', () => {
-    // Arrange
     jest
       .spyOn(githubService, 'getUserWithRepos')
       .mockReturnValue(of({ user: mockUser, repos: mockRepos }));
     component.ngOnInit();
     component.filterText = 'repo-a';
-
-    // Act
     component.applyFiltersAndSort();
-
-    // Assert
     expect(component.filteredRepos).toHaveLength(1);
     expect(component.filteredRepos[0].name).toBe('repo-a');
   });
 
   it('deve retornar lista vazia quando filtro não encontrar repositórios', () => {
-    // Arrange
     jest
       .spyOn(githubService, 'getUserWithRepos')
       .mockReturnValue(of({ user: mockUser, repos: mockRepos }));
     component.ngOnInit();
     component.filterText = 'repo-inexistente';
-
-    // Act
     component.applyFiltersAndSort();
-
-    // Assert
     expect(component.filteredRepos).toHaveLength(0);
   });
 
   it('deve retornar id do repositório quando trackById for chamado', () => {
-    // Arrange
     const repo = mockRepos[0];
-
-    // Act
     const result = component.trackById(0, repo);
-
-    // Assert
     expect(result).toBe(1);
   });
 });

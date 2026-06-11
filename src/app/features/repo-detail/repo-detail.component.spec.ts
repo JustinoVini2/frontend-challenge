@@ -77,83 +77,48 @@ describe('RepoDetailComponent', () => {
   });
 
   it('deve criar o componente quando a página de detalhe carregar', () => {
-    // Arrange
     jest.spyOn(githubService, 'getRepo').mockReturnValue(of(mockRepo));
-
-    // Act
     fixture.detectChanges();
-
-    // Assert
     expect(component).toBeTruthy();
   });
 
   it('deve exibir dados do repositório quando API retornar sucesso', () => {
-    // Arrange
     jest.spyOn(githubService, 'getRepo').mockReturnValue(of(mockRepo));
-
-    // Act
     component.ngOnInit();
-
-    // Assert
     expect(component.repo).toEqual(mockRepo);
     expect(component.loading).toBe(false);
   });
 
   it('deve chamar getRepo com owner e nome corretos', () => {
-    // Arrange
     jest.spyOn(githubService, 'getRepo').mockReturnValue(of(mockRepo));
-
-    // Act
     component.ngOnInit();
-
-    // Assert
     expect(githubService.getRepo).toHaveBeenCalledWith('justinovini', 'repo-a');
   });
 
   it('deve definir loading como false quando repositório for carregado', () => {
-    // Arrange
     jest.spyOn(githubService, 'getRepo').mockReturnValue(of(mockRepo));
-
-    // Act
     component.ngOnInit();
-
-    // Assert
     expect(component.loading).toBe(false);
   });
 
   it('deve definir loading como false quando erro 404 ocorrer', () => {
-    // Arrange
     const error = new HttpErrorResponse({ status: 404 });
     jest.spyOn(githubService, 'getRepo').mockReturnValue(throwError(() => error));
-
-    // Act
     component.ngOnInit();
-
-    // Assert
     expect(component.loading).toBe(false);
   });
 
   it('deve voltar para página anterior quando goBack for chamado', () => {
-    // Arrange
     jest.spyOn(githubService, 'getRepo').mockReturnValue(of(mockRepo));
     component.ngOnInit();
-
-    // Act
     component.goBack();
-
-    // Assert
     expect(location.back).toHaveBeenCalled();
   });
 
   it('deve retornar topic e index concatenados quando trackByTopic for chamado', () => {
-    // Arrange
     jest.spyOn(githubService, 'getRepo').mockReturnValue(of(mockRepo));
     component.ngOnInit();
-
-    // Act
     const result = component.trackByTopic(0, 'angular');
-
-    // Assert
     expect(result).toBe('angular-0');
   });
 });
