@@ -16,7 +16,7 @@
       <span>Updated {{ repo.updated_at | date: 'MMM d, y' }}</span>
     </div>
 
-    <mat-chip-set *ngIf="repo.topics?.length" class="topics">
+    <mat-chip-set *ngIf="repo.topics.length" class="topics">
       <mat-chip *ngFor="let topic of repo.topics | slice:0:3; trackBy: trackByTopic">
         {{ topic }}
       </mat-chip>

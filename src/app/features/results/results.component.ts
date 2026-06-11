@@ -2,8 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GithubRepo } from '../../core/models/github-repo.model';
-import { GithubUser } from '../../core/models/github-user.model';
-import { GithubService } from '../../core/services/github.service';
+import { GithubUser } from '../../core/models/github-user.model';import { GithubService } from '../../core/services/github.service';
+
 
 @Component({
   selector: 'app-results',
